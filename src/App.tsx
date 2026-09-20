@@ -344,7 +344,7 @@ function VariantGroup({
                 <span className="coin-check" aria-hidden="true">{isCollected && <Check size={18} strokeWidth={3} />}</span>
               </button>
               <div className="variant-copy">
-                <strong>{coin.motif}</strong>
+                <strong title={coin.motif}>{coin.motif}</strong>
                 <span>{isCollected ? "Collected" : "Not collected"}</span>
               </div>
             </article>
