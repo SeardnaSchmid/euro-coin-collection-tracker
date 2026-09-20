@@ -285,9 +285,15 @@ function CountryCollection({
           if (!variants.length) return null;
           const regular = variants.filter((coin) => coin.kind !== "commemorative");
           const commemorative = variants.filter((coin) => coin.kind === "commemorative");
+          const held = variants.filter((coin) => collected.has(coin.id)).length;
           return (
-            <section className="denomination-row" key={value} aria-labelledby={`${country.code}-${value}`}>
-              <h2 id={`${country.code}-${value}`}>{variants[0].denomination}</h2>
+            <section className="denomination-row" data-value={value} key={value} aria-labelledby={`${country.code}-${value}`}>
+              <h2 id={`${country.code}-${value}`}>
+                {variants[0].denomination}
+                <span className={`denomination-count ${held === variants.length ? "is-complete" : ""}`}>
+                  {held} / {variants.length} collected
+                </span>
+              </h2>
               <div className="variant-groups">
                 {!!regular.length && (
                   <VariantGroup title="Regular designs" coins={regular} collected={collected} onToggle={onToggle} onInfo={onInfo} />

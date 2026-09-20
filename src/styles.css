@@ -13,6 +13,9 @@
   --accent-soft: #eff6ff;
   --success: #15803d;
   --danger: #b91c1c;
+  --alloy-copper: #c08a5e;
+  --alloy-gold: #cdaa4e;
+  --alloy-silver: #b6bcc4;
   --radius: 8px;
   --shadow: 0 1px 2px rgba(15, 23, 42, .04);
 
@@ -94,9 +97,26 @@ main, footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; }
 .country-total strong { color: var(--text); font-size: 22px; font-weight: 600; }
 
 .denomination-list { border-top: 1px solid var(--border); }
-.denomination-row { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 24px; padding: 24px 0 28px; border-bottom: 1px solid var(--border); }
-.denomination-row > h2 { position: sticky; top: 76px; align-self: start; margin: 0; color: var(--text); font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
-.variant-groups { min-width: 0; }
+.denomination-row { padding: 0 0 28px; border-bottom: 1px solid var(--border); }
+
+/* The alloy edge runs unbroken from the sticky header down the side of every
+   card below it, so the block a coin belongs to is readable at any scroll
+   position. Colours are the coins' real alloys: copper for 1/2/5c, Nordic
+   gold for 10/20/50c, and the bimetal pair, which are inverted between the
+   two euro coins. */
+[data-value="1"], [data-value="2"], [data-value="5"] { --alloy: var(--alloy-copper); }
+[data-value="10"], [data-value="20"], [data-value="50"] { --alloy: var(--alloy-gold); }
+[data-value="100"], [data-value="200"] { --alloy: var(--alloy-silver); }
+
+.denomination-row > h2 {
+  position: sticky; top: 56px; z-index: 5; display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin: 0; padding: 10px 16px; border-bottom: 1px solid var(--border);
+  border-left: 3px solid var(--alloy); background: var(--surface-sunken); color: var(--text);
+  font-size: 15px; font-weight: 600; letter-spacing: -.01em;
+}
+.denomination-count { color: var(--text-muted); font-size: 12px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.denomination-count.is-complete { color: var(--accent); }
+.variant-groups { min-width: 0; padding: 20px 0 0 16px; border-left: 3px solid var(--alloy); }
 .variant-group + .variant-group { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
 .variant-group > h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; color: var(--text-muted); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
 .variant-group > h3 span { display: grid; place-items: center; min-width: 20px; height: 18px; padding: 0 6px; border-radius: 999px; background: var(--surface-sunken); color: var(--text-muted); font-size: 11px; letter-spacing: 0; font-variant-numeric: tabular-nums; }
@@ -196,8 +216,9 @@ footer a:hover { color: var(--accent); }
   .country-hero { grid-template-columns: auto 1fr; gap: 12px; padding-bottom: 22px; }
   .hero-flag { width: 44px; height: 34px; font-size: 25px; }
   .country-total { grid-column: 1 / -1; justify-self: start; }
-  .denomination-row { grid-template-columns: 1fr; gap: 12px; padding: 20px 0 24px; }
-  .denomination-row > h2 { position: static; }
+  .denomination-row { padding: 0 0 24px; }
+  .denomination-row > h2 { top: 52px; padding: 9px 12px; }
+  .variant-groups { padding: 16px 0 0 12px; }
   .variant-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .coin-image-button { min-height: 140px; padding: 12px; }
   .data-bar { align-items: flex-start; flex-direction: column; }
