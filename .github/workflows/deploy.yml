@@ -1,3 +1,4 @@
+# Builds main and publishes the static site on GitHub Pages.
 name: Deploy to GitHub Pages
 
 on:
@@ -10,6 +11,7 @@ permissions:
   pages: write
   id-token: write
 
+# Do not cancel a running deployment, but collapse newer pushes into one.
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -19,13 +21,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+
       - run: npm ci
+
       - run: npm test
+
+      # "npm run build" runs tsc --noEmit first, so a type error fails the
+      # deployment rather than shipping a stale-looking but broken bundle.
       - run: npm run build
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

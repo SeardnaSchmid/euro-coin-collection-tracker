@@ -40,6 +40,21 @@ python scripts/import-ecb-catalog.py
 
 The importer requires Python, `requests`, and `beautifulsoup4`. Existing stable IDs are preserved by the generated naming scheme, so an updated catalogue does not discard locally collected coins.
 
-## GitHub Pages
+## Publishing
 
-Create a GitHub repository, push this project to its `main` branch, and select **GitHub Actions** as the Pages source in the repository settings. The included workflow builds and deploys `dist/`.
+The site is live at <https://seardnaschmid.github.io/euro-coin-collection-tracker/>.
+
+Every push to `main` runs `.github/workflows/deploy.yml`, which tests, builds, and deploys `dist/` to GitHub Pages. The Pages source is set to **GitHub Actions**, so no `gh-pages` branch is involved. Vite's `base` is `"./"`, which is what lets the same build work under the repository subpath.
+
+## Releasing
+
+Releases are independent of publishing: a tag cuts a release, a push to `main` updates the live site.
+
+```sh
+npm version minor   # writes package.json, commits, and creates the vX.Y.Z tag
+git push --follow-tags
+```
+
+The `v*` tag triggers `.github/workflows/release.yml`, which rebuilds from the tag, attaches `eurocase-vX.Y.Z.zip` (the contents of `dist/`), and generates release notes from the commits since the previous tag. Edit the notes afterwards if the generated list needs prose.
+
+Use `npm version patch`, `minor`, or `major` as appropriate. To re-run a release for a tag that already exists, trigger the workflow manually from the Actions tab and pass the tag name.
