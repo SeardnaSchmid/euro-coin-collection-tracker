@@ -11,6 +11,7 @@
   --border-strong: #cbd5e1;
   --accent: #2563eb;
   --accent-soft: #eff6ff;
+  --accent-line: #bfdbfe;
   --success: #15803d;
   --danger: #b91c1c;
   --alloy-copper: #c08a5e;
@@ -127,13 +128,13 @@ main, footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; }
   background: var(--surface); box-shadow: var(--shadow); transition: border-color .12s ease, box-shadow .12s ease;
 }
 .variant-card:hover { border-color: var(--border-strong); }
-.variant-card.is-collected { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.variant-card.is-collected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .variant-subheader {
   display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 34px;
   padding: 6px 8px 6px 12px; border-bottom: 1px solid var(--border);
   color: var(--text-subtle); font-size: 11px; font-weight: 500;
 }
-.variant-card.is-collected .variant-subheader { border-bottom-color: var(--border); background: var(--accent-soft); color: var(--accent); }
+.variant-card.is-collected .variant-subheader { border-bottom-color: var(--accent-line); background: var(--accent-soft); color: var(--accent); }
 .variant-subheader > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .variant-subheader button { display: grid; flex: 0 0 auto; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 4px; background: none; color: var(--text-subtle); }
 .variant-subheader button:hover { background: var(--surface-sunken); color: var(--text); }
@@ -154,6 +155,7 @@ main, footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; }
 .coin-image-button:hover .coin-check { border-color: var(--accent); }
 .coin-image-button[aria-pressed="true"] .coin-check { border-color: var(--accent); background: var(--accent); color: #fff; }
 .variant-copy { display: flex; min-height: 54px; flex: 1; flex-direction: column; gap: 3px; padding: 10px 12px 12px; border-top: 1px solid var(--border); }
+.variant-card.is-collected .variant-copy { border-top-color: var(--accent-line); }
 .variant-copy strong {
   display: -webkit-box; overflow: hidden; font-size: 13px; font-weight: 600; line-height: 1.3;
   -webkit-box-orient: vertical; -webkit-line-clamp: 2;
